@@ -30,9 +30,9 @@ void Heartbeat_Run(void)
 
 void Heartbeat_ProcessIncoming(void)
 {
-    ProtocolPacket packet;
-    if (CAN_Receive(&packet)) {
-        if (packet.id == CAN_ID_HEARTBEAT_BASE) {
+    CAN_Frame frame;
+    if (CAN_Receive(&frame)) {
+        if (frame.id == CAN_ID_HEARTBEAT_BASE) {
             lastReceiveMs = Timer_GetTick();
             FaultManager_ClearTimeout();
         }
@@ -41,9 +41,10 @@ void Heartbeat_ProcessIncoming(void)
 
 void Heartbeat_Send(void)
 {
-    ProtocolPacket packet;
-    packet.id = CAN_ID_HEARTBEAT_BASE;
-    packet.length = 1;
-    packet.data[0] = 0x01;
-    CAN_Send(&packet);
+    CAN_Frame frame;
+    frame.id = CAN_ID_HEARTBEAT_BASE;
+    frame.extended = 0;
+    frame.dlc = 1;
+    frame.data[0] = 0x01;
+    CAN_Send(&frame);
 }
