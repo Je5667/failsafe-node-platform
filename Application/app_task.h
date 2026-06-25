@@ -4,6 +4,6 @@
 #include "node_state.h"
 
 void AppTask_Init(void);
-void AppTask_Run(NodeState *state);
+void AppTask_Run(void);
 
 #endif // APP_TASK_H

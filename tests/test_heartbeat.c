@@ -3,8 +3,7 @@
 
 int main(void)
 {
-    NodeState state;
-    NodeState_Init(&state);
+    NodeState_Init();
     Heartbeat_Init();
     Heartbeat_Run();
     return 0;

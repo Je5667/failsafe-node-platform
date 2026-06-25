@@ -4,7 +4,7 @@
 #include "node_state.h"
 
 void FaultManager_Init(void);
-void FaultManager_Run(NodeState *state);
+void FaultManager_Run(void); /* role-aware runner */
 void FaultManager_ReportTimeout(void);
 void FaultManager_ClearTimeout(void);
 

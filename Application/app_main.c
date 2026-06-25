@@ -3,17 +3,21 @@
 #include "node_state.h"
 #include "heartbeat.h"
 
-static NodeState currentState = NODE_INIT;
-
 void App_Init(void)
 {
-    NodeState_Init(&currentState);
+    NodeState_Init();
     Heartbeat_Init();
     AppTask_Init();
 }
 
 void App_Run(void)
 {
-    AppTask_Run(&currentState);
+    if (NodeRole_Get() == NODE_ROLE_MASTER) {
+        MasterState_RunInternal();
+    } else {
+        SlaveState_RunInternal();
+    }
+
+    AppTask_Run();
     Heartbeat_Run();
 }
